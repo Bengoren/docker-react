@@ -10,18 +10,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker build -t Bengoren/docker-react -f /Dockerfile 
-      - run: docker run -e CI=true Bengoren/docker-react npm test
+      - run: docker build -t bengoren/docker-react -f /Dockerfile 
+      - run: docker run -e CI=true bengoren/docker-react npm test
  
-      - run: docker build -t Bengoren/multi-client-10-14 ./client
-      - run: docker build -t Bengoren/multi-nginx-10-14 ./nginx
-      - run: docker build -t Bengoren/multi-server-10-14 ./server
-      - run: docker build -t Bengoren/multi-worker-10-14 ./worker
+      - run: docker build -t bengoren/multi-client-10-14 ./client
+      - run: docker build -t bengoren/multi-nginx-10-14 ./nginx
+      - run: docker build -t bengoren/multi-server-10-14 ./server
+      - run: docker build -t bengoren/multi-worker-10-14 ./worker
  
-      - run: docker push Bengoren/multi-client-10-14
-      - run: docker push Bengoren/multi-nginx-10-14
-      - run: docker push Bengoren/multi-server-10-14
-      - run: docker push Bengoren/multi-worker-10-14
+      - run: docker push bengoren/multi-client-10-14
+      - run: docker push bengoren/multi-nginx-10-14
+      - run: docker push bengoren/multi-server-10-14
+      - run: docker push bengoren/multi-worker-10-14
  
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
