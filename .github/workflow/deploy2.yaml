@@ -1,0 +1,14 @@
+name: Deploy MultiDocker
+on:
+  push:
+    branches:
+      - master # check your repo, your default branch might be master!
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - run: docker build -t Bengoren/docker-react -f /Dockerfile 
+      - run: docker run -e CI=true Bengoren/docker-react npm test
