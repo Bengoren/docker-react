@@ -7,4 +7,6 @@ RUN npm run build
 
 #hi
 FROM nginx 
-COPY --from=builder /app /usr/share/nginx/html
+COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=builder /usr/local/bin/npm /usr/local/bin/npm
+COPY --from=builder /usr/local/lib/node_modules /usr/local/lib/node_modules
