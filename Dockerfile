@@ -5,9 +5,11 @@ RUN npm install
 COPY . .
 RUN npm run build
 
+# Stage 2: Serve the built application with Nginx
+FROM node:16-alpine as runner
+WORKDIR /usr/share/nginx/html
+COPY --from=builder /app/build .
+
 #hi
 FROM nginx 
-COPY --from=builder /app/build /usr/share/nginx/html
-COPY --from=builder /usr/local/bin/node /usr/local/bin/node
-COPY --from=builder /usr/local/bin/npm /usr/local/bin/npm
-COPY --from=builder /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY --from=runner /usr/share/nginx/html /usr/share/nginx/html
